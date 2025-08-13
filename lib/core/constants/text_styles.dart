@@ -68,7 +68,7 @@ abstract class AppTextStyles {
   static  TextStyle widgetLabel = TextStyle(
     fontSize: 17.h,
     fontWeight: FontWeight.w400,
-    color: Color(0xFF636366), // Medium gray
+    color: Color(0xFF8A95A0), // Medium gray
   );
 
   /// Transaction title: "Expenses -$25,000.00"

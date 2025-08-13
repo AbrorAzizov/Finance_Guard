@@ -16,7 +16,7 @@ class TransactionRepoImp implements  TransactionRepository{
 
   @override
   Future<List<TransactionEntity>> getAllTransaction() async {
-   return await box.values.map((e) => e.toEntity(),).toList();
+   return  box.values.map((e) => e.toEntity(),).toList();
   }
 
   @override

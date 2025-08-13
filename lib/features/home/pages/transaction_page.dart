@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/custom_tab_bar.dart';
 import '../../../core/widgets/enter_amount.dart';
+import '../../../core/widgets/selecting_category.dart';
 
 class TransactionPage extends StatefulWidget {
   const TransactionPage({super.key});
@@ -17,6 +18,8 @@ class TransactionPage extends StatefulWidget {
 class _TransactionPageState extends State<TransactionPage> {
   @override
   Widget build(BuildContext context) {
+    Category? selectedCategory;
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -66,7 +69,17 @@ class _TransactionPageState extends State<TransactionPage> {
                   Column(
                     children: [
                       CurrencyInput(),
-                    ],
+                      SizedBox(height: 40,),
+                      SelectingCategory(
+                        selectedCategory: selectedCategory,
+                        onSelect: (cat) {
+                          setState(() {
+                            selectedCategory = cat;
+                          });
+                        },
+                      )
+
+              ],
                   ),
                   Text('inc'),
                 ],
