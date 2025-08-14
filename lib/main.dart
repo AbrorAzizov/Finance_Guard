@@ -1,8 +1,20 @@
 import 'package:finance_guard/features/home/pages/home_page.dart';
+import 'package:finance_guard/servise_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() {
+import 'features/home/data/model/transaction_model.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(TransactionModelAdapter());
+  setupServiceLocator();
+
+
+
   runApp(const MyApp());
 }
 

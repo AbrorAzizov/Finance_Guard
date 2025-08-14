@@ -6,7 +6,7 @@ class AppColors {
   static const Color primary = Color(0xFF007AFF); // iOS-style blue
 
   /// Success indicator (e.g. +48.00%)
-  static const Color success = Color(0xFF34C759); // green
+  static const Color buttonColor = Color(0xFFA9E34B); // green
 
   /// Error indicator (e.g. -48.00%)
   static const Color error = Color(0xFFFF3B30); // red

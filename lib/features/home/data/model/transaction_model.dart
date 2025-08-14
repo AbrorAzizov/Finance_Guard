@@ -1,13 +1,13 @@
 import 'package:hive/hive.dart';
-
 import '../../domain/entity/transaction_entity.dart';
+part 'transaction_model.g.dart';
 
 @HiveType(typeId: 0)
 class TransactionModel {
   @HiveField(0) final String id;
   @HiveField(1) final double amount;
   @HiveField(2) final int iconCodePoint;
-  @HiveField(3) final String iconFontFamily;
+  @HiveField(3) String? iconFontFamily;
   @HiveField(4) final int categoryColor;
   @HiveField(5) final DateTime date;
   @HiveField(6) final String? comment;
@@ -17,7 +17,7 @@ class TransactionModel {
     required this.id,
     required this.amount,
     required this.iconCodePoint,
-    required this.iconFontFamily,
+    this.iconFontFamily,
     required this.categoryColor,
     required this.date,
     this.comment,
