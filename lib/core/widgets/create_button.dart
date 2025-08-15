@@ -9,10 +9,7 @@ class CreateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        // TODO: validate and save transaction
-        debugPrint('Создание транзакции...');
-      },
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         minimumSize: Size(double.infinity, 48),
         backgroundColor: AppColors.buttonColor,
@@ -28,6 +25,5 @@ class CreateButton extends StatelessWidget {
       ),
       child: const Text('Create'),
     );
-
   }
 }

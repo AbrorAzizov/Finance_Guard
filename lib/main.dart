@@ -11,7 +11,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(TransactionModelAdapter());
-  setupServiceLocator();
+ await setupServiceLocator();
 
 
 

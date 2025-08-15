@@ -48,8 +48,9 @@ class _CurrencyInputState extends State<CurrencyInput> {
             controller: controller,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
             ],
+
             style: const TextStyle(
               color: Colors.white,
               fontSize: 40,

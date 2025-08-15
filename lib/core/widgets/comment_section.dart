@@ -3,19 +3,33 @@ import 'package:finance_guard/core/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CommentInput extends StatelessWidget {
+class CommentInput extends StatefulWidget {
   final ValueChanged<String> onCommentChanged;
-  final String? initialValue;
 
   const CommentInput({
     super.key,
     required this.onCommentChanged,
-    this.initialValue,
+
   });
 
   @override
+  State<CommentInput> createState() => _CommentInputState();
+}
+
+class _CommentInputState extends State<CommentInput> {
+  final controller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      widget.onCommentChanged(controller.text);
+    });
+
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController(text: initialValue ?? '');
 
     return Container(
       height: 113.h,
@@ -44,7 +58,9 @@ class CommentInput extends StatelessWidget {
               hintStyle: TextStyle(color: Colors.white54),
               border: InputBorder.none,
             ),
-            onChanged: onCommentChanged,
+            onChanged: (value) {
+
+            },
           ),
         ],
       ),
