@@ -26,7 +26,7 @@ abstract class AppTextStyles {
   static  TextStyle accountBalance = TextStyle(
     fontSize: 32.h,
     fontWeight: FontWeight.bold,
-    color: Color(0xFFFFFFFF), // Dark gray
+    color: Color(0xFF8E8E93), // Dark gray
   );
 
   /// Percentage change (positive): "+48.00%"

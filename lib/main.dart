@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'features/home/data/model/transaction_model.dart';
+import 'features/welcome/pages/welcome_page.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
             textTheme: Typography.whiteMountainView, // 👈 optional for dark theme
             fontFamily: 'SFPro'
           ),
-          home: const HomePage(),
+          home: const WelcomePage(),
         );
       },
     );
