@@ -48,7 +48,9 @@ class _IncomeTabState extends State<IncomeTab> {
       date: selectedTime,
       type: 'income' ,);
 
+
     context.read<TransactionCubit>().createTransaction(transaction);
+
   }
 
   @override

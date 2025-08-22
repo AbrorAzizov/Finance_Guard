@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+
 import 'package:finance_guard/core/constants/text_styles.dart';
 import 'package:finance_guard/core/widgets/back_button.dart';
 import 'package:finance_guard/features/home/bloc/transaction_bloc/transaction_state.dart';
@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/dialog/loading_dialog.dart';
 import '../../../core/widgets/custom_tab_bar.dart';
 import '../bloc/transaction_bloc/transaction_cubit.dart';
 import '../view/transaction/expense_tab.dart';
@@ -22,9 +21,7 @@ class TransactionPage extends StatefulWidget {
 class _TransactionPageState extends State<TransactionPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => TransactionCubit(),
-      child: DefaultTabController(
+    return DefaultTabController(
         length: 2,
         child: Scaffold(
           body: SafeArea(
@@ -66,16 +63,8 @@ class _TransactionPageState extends State<TransactionPage> {
                   SizedBox(height: 30.h),
                   BlocConsumer<TransactionCubit, TransactionState>(
                     listener: (context, state) {
-                      if (state is TransactionStateLoading) {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (_) => Loading(),
-                        );
-                      }
 
                       if (state is TransactionStateError) {
-                        Navigator.pop(context);
                         showDialog(
                           context: context,
                           builder: (_) => AlertDialog(
@@ -86,15 +75,12 @@ class _TransactionPageState extends State<TransactionPage> {
                       }
 
                       if (state is TransactionStateCreated) {
-                        // Закрываем Loading, если он был открыт
-                        Navigator.of(context, rootNavigator: true).pop();
-
-                        // Закрываем сам экран
-                        Navigator.of(context).pop();
-
-                        ScaffoldMessenger.of(context).showSnackBar(
+                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Transaction saved!')),
-                        );
+                       );
+                       context.read<TransactionCubit>().getAllData();
+                       Navigator.of(context).pop();
+
                       }
                     },
                     builder: (context, state) {
@@ -114,7 +100,7 @@ class _TransactionPageState extends State<TransactionPage> {
             ),
           ),
         ),
-      ),
-    );
+      );
+
   }
 }

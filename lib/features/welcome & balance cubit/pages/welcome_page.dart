@@ -1,10 +1,13 @@
 import 'package:finance_guard/core/constants/text_styles.dart';
 import 'package:finance_guard/core/widgets/create_button.dart';
+import 'package:finance_guard/features/home/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../servise_locator.dart';
+import '../repo/balance_repo.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -17,6 +20,7 @@ class _WelcomePageState extends State<WelcomePage> {
   final controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final balanceRepo = sl<BalanceRepo>();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -83,7 +87,16 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
               Spacer(),
               CreateButton(onPressed: () {
-
+                final text  = controller.text;
+                if(text.isNotEmpty){
+                  final amount = double.tryParse(text) ?? 0;
+                  debugPrint(' saved $amount');
+                  balanceRepo.saveTotal(amount);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const HomePage()),
+                  );
+                }
               }),
             ],
           ),

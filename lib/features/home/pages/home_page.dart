@@ -1,7 +1,9 @@
 import 'package:finance_guard/core/constants/app_colors.dart';
+import 'package:finance_guard/features/home/bloc/transaction_bloc/transaction_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-
+import '../bloc/transaction_bloc/transaction_state.dart';
 import '../pages/main_tab_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,19 +16,32 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final _pages = const [
-    MainTabScreen(),
-    Center(child: Text('Statistics', style: TextStyle(color: Colors.white))),
-    Center(child: Text('Settings', style: TextStyle(color: Colors.white))),
-    Center(child: Text('Settings', style: TextStyle(color: Colors.white))),
-    Center(child: Text('Settings', style: TextStyle(color: Colors.white))),
-    Center(child: Text('Settings', style: TextStyle(color: Colors.white))),
+
+  final _pages = [
+
+    BlocBuilder<TransactionCubit, TransactionState>(builder: (context, state) {
+      if (state is TransactionStateSummary) {
+        return MainTabScreen();
+      }
+      if (state is TransactionStateLoading) {
+        return const Center(child: CircularProgressIndicator());
+      }return Container();
+    }),
+    const Center(
+        child: Text('Statistics', style: TextStyle(color: Colors.white))),
+    const Center(
+        child: Text('Settings', style: TextStyle(color: Colors.white))),
+    const Center(
+        child: Text('Settings', style: TextStyle(color: Colors.white))),
+    const Center(
+        child: Text('Settings', style: TextStyle(color: Colors.white))),
+    const Center(
+        child: Text('Settings', style: TextStyle(color: Colors.white))),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 30,
@@ -56,7 +71,8 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
             label: "Settings",
-          ), ],
+          ),
+        ],
       ),
     );
   }
