@@ -40,6 +40,7 @@ class _ExpenseTabState extends State<ExpenseTab> {
     final transaction = TransactionEntity(
       id: _uuid.v4(),
       comment: comment,
+      name: selectedCategory.name,
       amount: moneyAmount,
       iconCodePoint: selectedCategory.icon.codePoint,
       iconFontFamily: selectedCategory.icon.fontFamily,

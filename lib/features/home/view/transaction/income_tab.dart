@@ -42,6 +42,7 @@ class _IncomeTabState extends State<IncomeTab> {
       id: _uuid.v4(),
       comment: comment,
       amount: moneyAmount,
+      name: selectedCategory.name,
       iconCodePoint: selectedCategory.icon.codePoint,
       iconFontFamily: selectedCategory.icon.fontFamily,
       categoryColor: selectedCategory.color.value,

@@ -51,8 +51,9 @@ class TransactionCubit extends Cubit<TransactionState> {
     _transactionRepository.filterTransactionsByDate(transactions, period);
 
     final expenses = _transactionRepository
-        .filterTransactionsByType(transactionsByDate, 'expense')
-        .fold(0.0, (sum, e) => sum + e.amount);
+        .filterTransactionsByType(transactionsByDate, 'expense');
+
+    final totalExpenses = expenses.fold(0.0, (sum, e) => sum + e.amount);
 
     final income = _transactionRepository
         .filterTransactionsByType(transactionsByDate, 'income')
@@ -73,7 +74,7 @@ class TransactionCubit extends Cubit<TransactionState> {
 
     double expensesChange = 0.0;
     if (previousExpenses > 0) {
-      expensesChange = ((expenses - previousExpenses) / previousExpenses) * 100;
+      expensesChange = ((totalExpenses - previousExpenses) / previousExpenses) * 100;
     }
 
     double incomeChange = 0.0;
@@ -81,11 +82,14 @@ class TransactionCubit extends Cubit<TransactionState> {
       incomeChange = ((income - previousIncome) / previousIncome) * 100;
     }
 
+
+
     return Statistics(
       totalIncome: income,
-      totalExpenses: expenses,
+      totalExpenses: totalExpenses,
       expensesPercentageChange: expensesChange,
-      incomePercentageChange: incomeChange
+      incomePercentageChange: incomeChange,
+      expenses: expenses
     );
   }
 

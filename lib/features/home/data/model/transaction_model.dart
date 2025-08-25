@@ -1,3 +1,4 @@
+// part of 'transaction_model.dart';
 import 'package:hive/hive.dart';
 import '../../domain/entity/transaction_entity.dart';
 part 'transaction_model.g.dart';
@@ -12,6 +13,7 @@ class TransactionModel {
   @HiveField(5) final DateTime date;
   @HiveField(6) final String? comment;
   @HiveField(7) final String type;
+  @HiveField(8) final String name; // Add this line
 
   TransactionModel({
     required this.id,
@@ -22,6 +24,7 @@ class TransactionModel {
     required this.date,
     this.comment,
     required this.type,
+    required this.name, // Add this line
   });
 
   TransactionEntity toEntity() => TransactionEntity(
@@ -33,6 +36,7 @@ class TransactionModel {
     date: date,
     comment: comment,
     type: type,
+    name: name, // Add this line
   );
 
   factory TransactionModel.fromEntity(TransactionEntity entity) =>
@@ -45,5 +49,6 @@ class TransactionModel {
         date: entity.date,
         comment: entity.comment,
         type: entity.type,
+        name: entity.name, // Add this line
       );
 }

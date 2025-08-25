@@ -1,4 +1,3 @@
-
 class TransactionEntity {
   final String id;
   final double amount;
@@ -7,18 +6,18 @@ class TransactionEntity {
   final int categoryColor;
   final DateTime date;
   final String? comment;
-  final String type; // expense / income
+  final String type;
+  final String name; // Add this line
 
   TransactionEntity({
     required this.id,
     required this.amount,
     required this.iconCodePoint,
-     this.iconFontFamily,
+    this.iconFontFamily,
     required this.categoryColor,
     required this.date,
     this.comment,
     required this.type,
+    required this.name,
   });
 }
-
-

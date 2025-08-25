@@ -86,6 +86,12 @@ abstract class AppTextStyles {
     color: Colors.white, // Light gray
   );
 
+  static  TextStyle whiteExpenseLabel = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+    color: Colors.white, // Light gray
+  );
+
   static const TextStyle navLabelActive = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
