@@ -1,9 +1,11 @@
 import 'package:finance_guard/features/home/domain/entity/transaction_entity.dart';
 
-abstract class TransactionRepository {
-  Future<void> addTransaction(TransactionEntity transaction);
+import '../entity/initial_transaction.dart';
 
-  Future<List<TransactionEntity>> getAllTransaction();
+abstract class TransactionRepository {
+  Future<void> addTransaction(InitialTransactionEntity transaction);
+
+  Future<List<InitialTransactionEntity>> getAllTransaction();
 
   Future<void> deleteTransaction(String id);
 

@@ -1,4 +1,4 @@
-
+import 'package:finance_guard/features/categories/data/category_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +10,7 @@ import '../../../../core/widgets/date_picker.dart';
 import '../../../../core/widgets/enter_amount.dart';
 import '../../../../core/widgets/selecting_category.dart';
 import '../../bloc/transaction_bloc/transaction_cubit.dart';
+import '../../domain/entity/initial_transaction.dart';
 import '../../domain/entity/transaction_entity.dart';
 
 class ExpenseTab extends StatefulWidget {
@@ -31,24 +32,35 @@ class _ExpenseTabState extends State<ExpenseTab> {
   double moneyAmount = 0;
   String? comment;
   final _uuid = Uuid();
+  final _categoryUuid = Uuid().v4();
 
   Future<void> _createTransaction() async {
     print('method called                   тттт');
     if (moneyAmount == 0) {
       return;
     }
-    final transaction = TransactionEntity(
+
+
+    final category = CategoryEntity(
+        id: _categoryUuid,
+        name: selectedCategory.name,
+        iconCodePoint: selectedCategory.icon.codePoint,
+        color: selectedCategory.color.value,iconFontFamily: selectedCategory.icon.fontFamily
+    );
+
+
+    final transaction = InitialTransactionEntity(
       id: _uuid.v4(),
       comment: comment,
-      name: selectedCategory.name,
+      categoryId :_categoryUuid,
       amount: moneyAmount,
-      iconCodePoint: selectedCategory.icon.codePoint,
-      iconFontFamily: selectedCategory.icon.fontFamily,
-      categoryColor: selectedCategory.color.value,
       date: selectedTime,
-      type: 'expense' ,);
+      type: 'expense',
+      isTracked: true,
 
-    context.read<TransactionCubit>().createTransaction(transaction);
+    );
+
+    context.read<TransactionCubit>().createTransaction(transaction,category);
   }
 
   @override

@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:finance_guard/features/categories/data/category_entity.dart';
 
 import '../../../../servise_locator.dart';
+import '../../../categories/domain/repo/categories_repo.dart';
 import '../../../welcome & balance cubit/repo/balance_repo.dart';
+import '../../domain/entity/initial_transaction.dart';
 import '../../domain/entity/statistics.dart';
 import '../../domain/entity/transaction_entity.dart';
 import '../../domain/repository/transaction_repo.dart';
@@ -10,6 +13,9 @@ import 'transaction_state.dart';
 class TransactionCubit extends Cubit<TransactionState> {
   final TransactionRepository _transactionRepository =
       sl<TransactionRepository>();
+
+  final  _categoryRepository = sl<CategoriesRepo>();
+
   final balance = sl<BalanceRepo>();
 
   TransactionCubit() : super(TransactionStateInitial());
@@ -18,17 +24,20 @@ class TransactionCubit extends Cubit<TransactionState> {
     emit(TransactionStateLoading());
     try {
       final transactions = await _transactionRepository.getAllTransaction();
-      emit(TransactionStateLoaded(transactions: transactions));
+      final categories = await _categoryRepository.getAllCategories();
+
+      emit(TransactionStateLoaded(transactions: transactions,categories: categories));
       await getAllData();
     } catch (e) {
       emit(TransactionStateError('Ошибка при загрузке транзакций: $e'));
     }
   }
 
-  Future<void> createTransaction(TransactionEntity transaction) async {
+  Future<void> createTransaction(InitialTransactionEntity transaction,CategoryEntity category) async {
     emit(TransactionStateLoading());
     try {
       await _transactionRepository.addTransaction(transaction);
+      await _categoryRepository.addCategory(category);
       final totalBalance = balance.getTotal();
       final newTotal = transaction.type == 'income'
           ? totalBalance + transaction.amount
@@ -93,14 +102,42 @@ class TransactionCubit extends Cubit<TransactionState> {
     );
   }
 
-  Future<void> getAllData () async{
-    final transactions = await _transactionRepository.getAllTransaction();
-    final  dayData =  await loadSortByType(transactions: transactions, period: 'day');
+  Future<void> getAllData() async {
+    final initialTransactions = await _transactionRepository.getAllTransaction();
+    final categories = await _categoryRepository.getAllCategories();
+
+    // create a map for quick lookup: categoryId -> CategoryEntity
+    final categoryMap = {for (var c in categories) c.id: c};
+
+    // convert initialTransactions into TransactionEntity by combining with category info
+    final transactions = initialTransactions.map((t) {
+      final category = categoryMap[t.categoryId]; // match transaction’s category
+
+      return TransactionEntity(
+        id: t.id,
+        amount: t.amount,
+        iconCodePoint: category?.iconCodePoint ?? 0,
+        iconFontFamily: category?.iconFontFamily,
+        categoryColor: category?.color ?? 0,
+        date: t.date,
+        comment: t.comment,
+        type: t.type,
+        name: category?.name ?? 'Unknown',
+      );
+    }).toList();
+
+    final dayData = await loadSortByType(transactions: transactions, period: 'day');
     final weekData = await loadSortByType(transactions: transactions, period: 'week');
     final monthData = await loadSortByType(transactions: transactions, period: 'month');
 
-    emit(TransactionStateSummary(dayData: dayData, weekData: weekData, monthData: monthData, transactions: transactions,));
+    emit(TransactionStateSummary(
+      dayData: dayData,
+      weekData: weekData,
+      monthData: monthData,
+      transactions: transactions,
+    ));
   }
+
 
 }
 

@@ -1,54 +1,48 @@
-// part of 'transaction_model.dart';
+
 import 'package:hive/hive.dart';
-import '../../domain/entity/transaction_entity.dart';
+import '../../domain/entity/initial_transaction.dart';
+
 part 'transaction_model.g.dart';
+
 
 @HiveType(typeId: 0)
 class TransactionModel {
   @HiveField(0) final String id;
   @HiveField(1) final double amount;
-  @HiveField(2) final int iconCodePoint;
-  @HiveField(3) String? iconFontFamily;
-  @HiveField(4) final int categoryColor;
-  @HiveField(5) final DateTime date;
-  @HiveField(6) final String? comment;
-  @HiveField(7) final String type;
-  @HiveField(8) final String name; // Add this line
+  @HiveField(2) final DateTime date;
+  @HiveField(3) final String type; // expense/income
+  @HiveField(4) final String? comment;
+  @HiveField(5) final String categoryId;
+  @HiveField(6) final bool isTracked;
 
   TransactionModel({
     required this.id,
     required this.amount,
-    required this.iconCodePoint,
-    this.iconFontFamily,
-    required this.categoryColor,
     required this.date,
-    this.comment,
     required this.type,
-    required this.name, // Add this line
+    this.comment,
+    required this.categoryId,
+    this.isTracked = true,
   });
 
-  TransactionEntity toEntity() => TransactionEntity(
+  InitialTransactionEntity toEntity() => InitialTransactionEntity(
     id: id,
     amount: amount,
-    iconCodePoint: iconCodePoint,
-    iconFontFamily: iconFontFamily,
-    categoryColor: categoryColor,
     date: date,
-    comment: comment,
     type: type,
-    name: name, // Add this line
+    comment: comment,
+    categoryId: categoryId,
+    isTracked: isTracked,
   );
 
-  factory TransactionModel.fromEntity(TransactionEntity entity) =>
+  factory TransactionModel.fromEntity(InitialTransactionEntity entity) =>
       TransactionModel(
         id: entity.id,
         amount: entity.amount,
-        iconCodePoint: entity.iconCodePoint,
-        iconFontFamily: entity.iconFontFamily,
-        categoryColor: entity.categoryColor,
         date: entity.date,
-        comment: entity.comment,
         type: entity.type,
-        name: entity.name, // Add this line
+        comment: entity.comment,
+        categoryId: entity.categoryId,
+        isTracked: entity.isTracked,
       );
 }

@@ -7,9 +7,11 @@ class TransactionEntity {
   final DateTime date;
   final String? comment;
   final String type;
-  final String name; // Add this line
+  final String name;
+
 
   TransactionEntity({
+
     required this.id,
     required this.amount,
     required this.iconCodePoint,

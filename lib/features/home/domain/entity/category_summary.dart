@@ -5,9 +5,10 @@ class CategorySummary {
   final int iconCodePoint;
   final String? iconFontFamily;
   final int categoryColor;
-
+  final bool isTracked;
 
   CategorySummary({
+    required this.isTracked,
     required this.name,
     required this.amount,
     required this.iconCodePoint,

@@ -1,5 +1,7 @@
+import 'package:finance_guard/features/categories/data/category_entity.dart';
 import 'package:finance_guard/features/home/domain/entity/statistics.dart';
 
+import '../../domain/entity/initial_transaction.dart';
 import '../../domain/entity/transaction_entity.dart';
 
 abstract class TransactionState {}
@@ -23,9 +25,10 @@ class TransactionStateCreated extends TransactionState {}
 
 
 class TransactionStateLoaded extends TransactionState {
-  final List<TransactionEntity> transactions;
+  final List<InitialTransactionEntity> transactions;
+  final List<CategoryEntity> categories;
 
-  TransactionStateLoaded({required this.transactions});
+  TransactionStateLoaded({required this.transactions,required this.categories});
 }
 
 

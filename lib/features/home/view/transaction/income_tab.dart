@@ -11,6 +11,8 @@ import '../../../../core/widgets/create_button.dart';
 import '../../../../core/widgets/date_picker.dart';
 import '../../../../core/widgets/enter_amount.dart';
 import '../../../../core/widgets/selecting_category.dart';
+import '../../../categories/data/category_entity.dart';
+import '../../domain/entity/initial_transaction.dart';
 import '../../domain/entity/transaction_entity.dart';
 
 class IncomeTab extends StatefulWidget {
@@ -32,28 +34,36 @@ class _IncomeTabState extends State<IncomeTab> {
   double moneyAmount = 0;
   String? comment;
   final _uuid = Uuid();
+  final _categoryUuid = Uuid().v4();
 
   Future<void> _createTransaction() async {
     print('method called                   тттт');
     if (moneyAmount == 0) {
       return;
     }
-    final transaction = TransactionEntity(
+
+
+    final category = CategoryEntity(
+        id: _categoryUuid,
+        name: selectedCategory.name,
+        iconCodePoint: selectedCategory.icon.codePoint,
+        color: selectedCategory.color.value
+    );
+
+
+    final transaction = InitialTransactionEntity(
       id: _uuid.v4(),
       comment: comment,
+      categoryId :_categoryUuid,
       amount: moneyAmount,
-      name: selectedCategory.name,
-      iconCodePoint: selectedCategory.icon.codePoint,
-      iconFontFamily: selectedCategory.icon.fontFamily,
-      categoryColor: selectedCategory.color.value,
       date: selectedTime,
-      type: 'income' ,);
+      type: 'income',
+      isTracked: true,
 
+    );
 
-    context.read<TransactionCubit>().createTransaction(transaction);
-
+    context.read<TransactionCubit>().createTransaction(transaction,category);
   }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

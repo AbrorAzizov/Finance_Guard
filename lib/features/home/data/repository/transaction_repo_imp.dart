@@ -2,19 +2,22 @@ import 'package:finance_guard/features/home/data/model/transaction_model.dart';
 import 'package:finance_guard/features/home/domain/entity/transaction_entity.dart';
 import 'package:finance_guard/features/home/domain/repository/transaction_repo.dart';
 import 'package:hive/hive.dart';
+
+import '../../domain/entity/initial_transaction.dart';
 class TransactionRepoImp implements  TransactionRepository {
   final Box<TransactionModel> box;
 
   TransactionRepoImp({required this.box});
 
   @override
-  Future<void> addTransaction(TransactionEntity transaction) async {
+  Future<void> addTransaction(InitialTransactionEntity transaction) async {
     final model = TransactionModel.fromEntity(transaction);
     await box.put(model.id, model);
   }
 
+
   @override
-  Future<List<TransactionEntity>> getAllTransaction() async {
+  Future<List<InitialTransactionEntity>> getAllTransaction() async {
     return box.values.map((e) => e.toEntity(),).toList();
   }
 
@@ -63,7 +66,6 @@ class TransactionRepoImp implements  TransactionRepository {
           return date.year == yesterday.year &&
               date.month == yesterday.month &&
               date.day == yesterday.day;
-
         case 'week':
           final startOfThisWeek = now.subtract(Duration(days: now.weekday - 1));
           final startOfPrevWeek = startOfThisWeek.subtract(const Duration(days: 7));

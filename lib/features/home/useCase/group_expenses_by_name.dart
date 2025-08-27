@@ -17,13 +17,17 @@ class GroupExpensesByName {
           categoryColor: existing.categoryColor,
           iconCodePoint: existing.iconCodePoint,
           iconFontFamily: existing.iconFontFamily,
+          isTracked: existing.isTracked,
         );
       } else {
-        map[name] = CategorySummary(name: name,
-            amount: expense.amount,
-            iconCodePoint: expense.iconCodePoint,
-            iconFontFamily: expense.iconFontFamily,
-            categoryColor: expense.categoryColor);
+        map[name] = CategorySummary(
+          name: name,
+          isTracked: true, // если есть поле или false
+          amount: expense.amount,
+          iconCodePoint: expense.iconCodePoint,
+          iconFontFamily: expense.iconFontFamily,
+          categoryColor: expense.categoryColor,
+        );
       }
     }
     return map.values.toList();
