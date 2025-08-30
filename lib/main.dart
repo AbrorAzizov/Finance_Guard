@@ -24,7 +24,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider<TransactionCubit>(
-          create: (_) => sl<TransactionCubit>()..getAllData(),
+          create: (_) => sl<TransactionCubit>(),
         ),
         BlocProvider<CategoryCubit>(
           create: (_) => sl<CategoryCubit>()..loadDefaultCategories(),

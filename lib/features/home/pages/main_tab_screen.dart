@@ -1,9 +1,11 @@
 import 'package:finance_guard/core/constants/app_colors.dart';
+import 'package:finance_guard/features/home/bloc/transaction_bloc/transaction_cubit.dart';
 import 'package:finance_guard/features/home/pages/transaction_page.dart';
 import 'package:finance_guard/features/home/view/day_statistics.dart';
 import 'package:finance_guard/features/home/view/month_statistics.dart';
 import 'package:finance_guard/features/home/view/week_statistics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,6 +15,7 @@ import '../../../core/widgets/custom_tab_bar.dart';
 import '../../../core/widgets/notifications_button.dart';
 import '../../../servise_locator.dart';
 import '../../welcome & balance cubit/repo/balance_repo.dart';
+import '../bloc/transaction_bloc/transaction_state.dart';
 
 
 class MainTabScreen extends StatefulWidget {
@@ -28,6 +31,7 @@ class _MainTabScreenState extends State<MainTabScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<TransactionCubit>().getAllData();
      total = sl<BalanceRepo>().getTotal();
   }
 
@@ -40,85 +44,98 @@ class _MainTabScreenState extends State<MainTabScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return  DefaultTabController(
-        length: 3,
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(17.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20.h),
+    return BlocBuilder<TransactionCubit, TransactionState>(
+      builder: (context, state) {
 
-                // Заголовок + кнопки
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        if (state is TransactionStateSummary) {
+          return DefaultTabController(
+            length: 3,
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(17.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Main', style: AppTextStyles.screenTitle),
+                    SizedBox(height: 20.h),
+
+// Заголовок + кнопки
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AddCircleButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => const TransactionPage()),
-                            ).then((value) {
-                              _updateTotal();
-                            },);
-                          },
+                        Text('Main', style: AppTextStyles.screenTitle),
+                        Row(
+                          children: [
+                            AddCircleButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const TransactionPage()),
+                                ).then((value) {
+                                  _updateTotal();
+                                },);
+                              },
+                            ),
+                            SizedBox(width: 8.w),
+                            NotificationsButton(onPressed: () {}),
+                          ],
                         ),
-                        SizedBox(width: 8.w),
-                        NotificationsButton(onPressed: () {}),
                       ],
+                    ),
+
+                    SizedBox(height: 40.h),
+
+// TabBar
+                    Container(
+                      height: 40.h,
+                      width: MediaQuery.of(context).size.width * 0.75 ,
+                      padding: EdgeInsets.symmetric(horizontal: 4.w),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8.r)),
+                        color: AppColors.cardBackground,
+                      ),
+                      child: TabBar(
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        dividerColor: Colors.transparent,
+                        indicator: BoxDecoration(
+                          color: Colors.lightBlueAccent,
+                          borderRadius: BorderRadius.all(Radius.circular(8.r)),
+                        ),
+                        labelColor: Colors.black,
+                        unselectedLabelColor: Colors.white,
+                        tabs: const [
+                          TabItem(title: 'Day'),
+                          TabItem(title: 'Week'),
+                          TabItem(title: 'Month'),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 16.h),
+
+// Контент вкладок
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          DayStatistics(total: total,),
+                          WeekStatistics(total:  total,),
+                          MonthStatistics(total:  total,),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-
-                SizedBox(height: 40.h),
-
-                // TabBar
-                Container(
-                  height: 40.h,
-                  width: MediaQuery.of(context).size.width * 0.75 ,
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8.r)),
-                    color: AppColors.cardBackground,
-                  ),
-                  child: TabBar(
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    dividerColor: Colors.transparent,
-                    indicator: BoxDecoration(
-                      color: Colors.lightBlueAccent,
-                      borderRadius: BorderRadius.all(Radius.circular(8.r)),
-                    ),
-                    labelColor: Colors.black,
-                    unselectedLabelColor: Colors.white,
-                    tabs: const [
-                      TabItem(title: 'Day'),
-                      TabItem(title: 'Week'),
-                      TabItem(title: 'Month'),
-                    ],
-                  ),
-                ),
-
-                SizedBox(height: 16.h),
-
-                // Контент вкладок
-                 Expanded(
-                  child: TabBarView(
-                    children: [
-                      DayStatistics(total: total,),
-                      WeekStatistics(total:  total,),
-                      MonthStatistics(total:  total,),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      );
+          );
+        }
+        if (state is TransactionStateLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return Container();
+      },
+    );
+
 
   }
 }
+

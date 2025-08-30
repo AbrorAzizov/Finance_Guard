@@ -1,9 +1,7 @@
 import 'package:finance_guard/core/constants/app_colors.dart';
-import 'package:finance_guard/features/home/bloc/transaction_bloc/transaction_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/transaction_bloc/transaction_state.dart';
+import '../../categories/presentation/pages/category_tab.dart';
 import '../pages/main_tab_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,25 +17,21 @@ class _HomePageState extends State<HomePage> {
 
   final _pages = [
 
-    BlocBuilder<TransactionCubit, TransactionState>(builder: (context, state) {
-      if (state is TransactionStateSummary) {
-        return MainTabScreen();
-      }
-      if (state is TransactionStateLoading) {
-        return const Center(child: CircularProgressIndicator());
-      }return Container();
-    }),
+    const MainTabScreen(),
+
+    const CategoryTab(),
+
     const Center(
-        child: Text('Statistics', style: TextStyle(color: Colors.white))),
+      child: Text('Settings', style: TextStyle(color: Colors.white)),
+    ),
     const Center(
-        child: Text('Settings', style: TextStyle(color: Colors.white))),
+      child: Text('Settings', style: TextStyle(color: Colors.white)),
+    ),
     const Center(
-        child: Text('Settings', style: TextStyle(color: Colors.white))),
-    const Center(
-        child: Text('Settings', style: TextStyle(color: Colors.white))),
-    const Center(
-        child: Text('Settings', style: TextStyle(color: Colors.white))),
+      child: Text('Settings', style: TextStyle(color: Colors.white)),
+    ),
   ];
+
 
   @override
   Widget build(BuildContext context) {

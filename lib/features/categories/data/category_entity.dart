@@ -4,8 +4,10 @@ class CategoryEntity {
   final int iconCodePoint;
   final String? iconFontFamily;
   final int color;
+  final bool isTracked;
 
-  const CategoryEntity({
+  const CategoryEntity( {
+    required this.isTracked,
     required this.id,
     required this.name,
     required this.iconCodePoint,

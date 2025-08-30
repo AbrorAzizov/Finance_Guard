@@ -106,12 +106,15 @@ class TransactionCubit extends Cubit<TransactionState> {
     final initialTransactions = await _transactionRepository.getAllTransaction();
     final categories = await _categoryRepository.getAllCategories();
 
-    // create a map for quick lookup: categoryId -> CategoryEntity
-    final categoryMap = {for (var c in categories) c.id: c};
+    // ⚡ фильтруем только isTracked == true
+    final trackedCategories = categories.where((c) => c.isTracked).toList();
 
-    // convert initialTransactions into TransactionEntity by combining with category info
+    // создаём map: categoryId -> CategoryEntity
+    final categoryMap = {for (var c in trackedCategories) c.id: c};
+
+    // преобразуем транзакции, учитывая только отслеживаемые категории
     final transactions = initialTransactions.map((t) {
-      final category = categoryMap[t.categoryId]; // match transaction’s category
+      final category = categoryMap[t.categoryId];
 
       return TransactionEntity(
         id: t.id,
@@ -124,7 +127,7 @@ class TransactionCubit extends Cubit<TransactionState> {
         type: t.type,
         name: category?.name ?? 'Unknown',
       );
-    }).toList();
+    }).where((tx) => tx.name != 'Unknown').toList(); // ⚡ исключаем транзакции без категории
 
     final dayData = await loadSortByType(transactions: transactions, period: 'day');
     final weekData = await loadSortByType(transactions: transactions, period: 'week');
@@ -137,6 +140,7 @@ class TransactionCubit extends Cubit<TransactionState> {
       transactions: transactions,
     ));
   }
+
 
 
 }

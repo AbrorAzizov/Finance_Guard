@@ -1,35 +1,25 @@
 import 'package:finance_guard/core/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../features/categories/data/category_entity.dart';
 import '../constants/app_colors.dart';
 
-class Category {
-  final String name;
-  final IconData icon;
-  final Color color;
 
-  const Category({
-    required this.name,
-    required this.icon,
-    required this.color,
-  });
-}
 
 class SelectingCategory extends StatelessWidget {
-  final Category? selectedCategory;
-  final ValueChanged<Category> onSelect;
-  final List<Category> categories;
+  final CategoryEntity? selectedCategory;
+  final ValueChanged<CategoryEntity> onSelect;
+  final List<CategoryEntity> categories;
 
   const SelectingCategory({
     super.key,
     required this.selectedCategory,
-    required this.onSelect, required this.categories,
+    required this.onSelect,
+    required this.categories,
   });
 
   @override
   Widget build(BuildContext context) {
-
-
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 18.h),
       width: double.infinity,
@@ -38,24 +28,24 @@ class SelectingCategory extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Select Category', style: AppTextStyles.widgetLabel),
           SizedBox(height: 8.h),
           GridView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(), // чтобы не было скролла
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: categories.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
               crossAxisSpacing: 6.w,
               mainAxisSpacing: 6.h,
-                childAspectRatio: 2.1
+              childAspectRatio: 2.1,
             ),
             itemBuilder: (context, index) {
               final category = categories[index];
-              final isSelected = category.name == selectedCategory?.name;
-
+              final isSelected = category.id == selectedCategory?.id;
+              print(categories.length);
               return GestureDetector(
                 onTap: () => onSelect(category),
                 child: Container(
@@ -64,27 +54,36 @@ class SelectingCategory extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isSelected
                         ? Colors.lightBlueAccent
-                        :AppColors.cardBackground,
+                        : AppColors.cardBackground,
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        child: Icon(category.icon,
-                            size: 14.h, color: Colors.black),
+                        child: Icon(
+                          IconData(
+                            category.iconCodePoint,
+                            fontFamily: category.iconFontFamily,
+                          ),
+                          size: 14.h,
+                          color: Colors.black,
+                        ),
                         maxRadius: 14.r,
-                        backgroundColor: category.color,
+                        backgroundColor: Color(category.color),
                       ),
                       SizedBox(width: 5.w),
-                      Text(
-                        category.name,
-                        style: TextStyle(
-                           color: isSelected? Colors.black : Colors.white ,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
+                      Flexible(
+                        child: Text(
+                          category.name,
+                          style: TextStyle(
+                            color: isSelected ? Colors.black : Colors.white,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
@@ -92,12 +91,14 @@ class SelectingCategory extends StatelessWidget {
               );
             },
           ),
-          SizedBox(height: 3.h,),
+          SizedBox(height: 3.h),
           SizedBox(
             height: 32.h,
             width: 72.w,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                // TODO: добавить логику добавления категории
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -122,6 +123,5 @@ class SelectingCategory extends StatelessWidget {
         ],
       ),
     );
-
   }
 }

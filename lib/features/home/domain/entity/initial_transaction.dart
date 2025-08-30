@@ -5,7 +5,6 @@ class InitialTransactionEntity {
   final String type; // expense/income
   final String? comment;
   final String categoryId;
-  final bool isTracked;
 
   InitialTransactionEntity({
     required this.id,
@@ -14,6 +13,6 @@ class InitialTransactionEntity {
     required this.type,
     this.comment,
     required this.categoryId,
-    this.isTracked = true,
+
   });
 }

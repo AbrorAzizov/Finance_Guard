@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-
 import 'package:flutter/material.dart';
 
 import '../../data/category_entity.dart';
@@ -23,15 +22,18 @@ class CategoryModel extends HiveObject {
   @HiveField(4)
   final int color;
 
+  @HiveField(5)
+  final bool isTracked;
+
   CategoryModel({
     required this.id,
     required this.name,
     required this.iconCodePoint,
     this.iconFontFamily,
     required this.color,
+    this.isTracked = true, // 👈 теперь по умолчанию TRUE
   });
 
-  // 🔹 Convert Model → Entity
   CategoryEntity toEntity() {
     return CategoryEntity(
       id: id,
@@ -39,10 +41,10 @@ class CategoryModel extends HiveObject {
       iconCodePoint: iconCodePoint,
       iconFontFamily: iconFontFamily,
       color: color,
+      isTracked: isTracked,
     );
   }
 
-  // 🔹 Convert Entity → Model
   factory CategoryModel.fromEntity(CategoryEntity entity) {
     return CategoryModel(
       id: entity.id,
@@ -50,6 +52,7 @@ class CategoryModel extends HiveObject {
       iconCodePoint: entity.iconCodePoint,
       iconFontFamily: entity.iconFontFamily,
       color: entity.color,
+      isTracked: entity.isTracked,
     );
   }
 

@@ -32,7 +32,7 @@ class TransactionModel {
     type: type,
     comment: comment,
     categoryId: categoryId,
-    isTracked: isTracked,
+
   );
 
   factory TransactionModel.fromEntity(InitialTransactionEntity entity) =>
@@ -43,6 +43,5 @@ class TransactionModel {
         type: entity.type,
         comment: entity.comment,
         categoryId: entity.categoryId,
-        isTracked: entity.isTracked,
       );
 }
