@@ -3,7 +3,6 @@ import 'package:finance_guard/features/categories/data/entity/icon_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../data/entity/category_entity.dart';
 
 class SelectingIcon extends StatelessWidget {
   final IconEntity? selectedIcon;

@@ -1,4 +1,5 @@
 import 'package:finance_guard/core/widgets/create_button.dart';
+import 'package:finance_guard/features/categories/data/entity/category_entity.dart';
 import 'package:finance_guard/features/categories/presentation/bloc/categories_cubit.dart';
 import 'package:finance_guard/features/categories/presentation/bloc/category_state.dart';
 import 'package:finance_guard/features/categories/presentation/widgets/enter_category.dart';
@@ -12,16 +13,25 @@ import '../../../../core/widgets/back_button.dart';
 import '../../data/entity/icon_entity.dart';
 import '../widgets/selecting_icon.dart';
 
-class CategoryInputPage extends StatefulWidget {
-  const CategoryInputPage({super.key});
+
+
+class CategoryEdit extends StatefulWidget {
+  final CategoryEntity categoryEntity;
+  const CategoryEdit({super.key, required this.categoryEntity});
 
   @override
-  State<CategoryInputPage> createState() => _CategoryInputPageState();
+  State<CategoryEdit> createState() => _CategoryEditState();
 }
 
-class _CategoryInputPageState extends State<CategoryInputPage> {
-  IconEntity? selectedCategory; // хранение выбранной категории
-  String categoryName = "";
+class _CategoryEditState extends State<CategoryEdit> {
+  IconEntity? selectedCategory;
+  late String categoryName ;
+
+  @override
+  void initState() {
+    super.initState();
+    categoryName = widget.categoryEntity.name; // set AFTER widget is ready ✅
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +49,10 @@ class _CategoryInputPageState extends State<CategoryInputPage> {
                   },
                 ),
                 SizedBox(height: 30.h),
-                Text('Add Category', style: AppTextStyles.screenTitle),
+                Text('Edit Category', style: AppTextStyles.screenTitle),
                 SizedBox(height: 30.h),
 
-                /// Ввод названия категории
+
                 CategoryInput(
                   onCategoryChanged: (value) {
                     setState(() {
@@ -76,7 +86,8 @@ class _CategoryInputPageState extends State<CategoryInputPage> {
                 CreateButton(
                   onPressed: () {
                     if (categoryName.isNotEmpty && selectedCategory != null) {
-                      context.read<CategoryCubit>().addCategory(
+                      context.read<CategoryCubit>().editCategory(
+                        widget.categoryEntity.id,
                           categoryName,
                           selectedCategory!.iconCodePoint,
                           selectedCategory?.iconFontFamily,
@@ -98,4 +109,5 @@ class _CategoryInputPageState extends State<CategoryInputPage> {
       ),
     );
   }
-}
+  }
+

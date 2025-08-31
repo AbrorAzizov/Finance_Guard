@@ -29,8 +29,31 @@ class CategoryCubit extends Cubit<CategoryState> {
 
     await _categoryRepository.addCategory(category);
   }
+  void editCategory(String id,String name, int iconCodePoint, String? fontFamily,
+      int color) async {
+    final category = CategoryEntity(
+      isTracked: true,
+      id: id,
+      name: name,
+      iconCodePoint: iconCodePoint,
+      iconFontFamily: fontFamily,
+      color: color,
+    );
+
+    await _categoryRepository.editCategory(category);
+  }
+
+
 
   Future<void> loadCategories() async {
+    final categories = await _categoryRepository.getAllCategories();
+    emit(CategoryLoaded(categories));
+  }
+
+
+  Future<void> deleteCategories(String id) async {
+    await _categoryRepository.deleteCategory(id);
+
     final categories = await _categoryRepository.getAllCategories();
     emit(CategoryLoaded(categories));
   }

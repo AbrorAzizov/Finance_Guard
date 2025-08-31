@@ -2,6 +2,7 @@ import 'package:finance_guard/core/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../features/categories/data/entity/category_entity.dart';
+import '../../features/categories/presentation/pages/category_input_page.dart';
 import '../constants/app_colors.dart';
 
 
@@ -97,7 +98,12 @@ class SelectingCategory extends StatelessWidget {
             width: 72.w,
             child: GestureDetector(
               onTap: () {
-
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const CategoryInputPage(),
+                  ),
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

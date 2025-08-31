@@ -1,5 +1,6 @@
 
 import 'package:finance_guard/core/constants/app_colors.dart';
+import 'package:finance_guard/features/categories/presentation/pages/category_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -158,7 +159,12 @@ class _CategoryTabState extends State<CategoryTab> {
                                        ),
                                      ),
                                      onPressed: () {
-
+                                       Navigator.push(
+                                         context,
+                                         MaterialPageRoute(
+                                           builder: (_) =>  CategoryEdit(categoryEntity: category),
+                                         ),
+                                       );
                                      },
                                      child: const Text("Edit"),
                                    ),
@@ -173,7 +179,7 @@ class _CategoryTabState extends State<CategoryTab> {
                                    child: InkWell(
                                      borderRadius: BorderRadius.circular(12.r),
                                      onTap: () {
-
+                                       context.read<CategoryCubit>().deleteCategories(category.id);
                                      },
                                      child: Padding(
                                        padding: EdgeInsets.all(10.r),
@@ -199,4 +205,6 @@ class _CategoryTabState extends State<CategoryTab> {
       ),
     );
   }
+
+
 }
