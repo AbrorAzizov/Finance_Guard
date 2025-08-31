@@ -1,4 +1,4 @@
-import 'package:finance_guard/features/categories/data/category_entity.dart';
+import 'package:finance_guard/features/categories/data/entity/category_entity.dart';
 import 'package:finance_guard/features/home/domain/entity/statistics.dart';
 
 import '../../domain/entity/initial_transaction.dart';

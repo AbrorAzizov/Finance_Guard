@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:finance_guard/features/categories/data/category_entity.dart';
+import 'package:finance_guard/features/categories/data/entity/category_entity.dart';
 
 import '../../../../servise_locator.dart';
 import '../../../categories/domain/repo/categories_repo.dart';
@@ -64,8 +64,10 @@ class TransactionCubit extends Cubit<TransactionState> {
 
     final totalExpenses = expenses.fold(0.0, (sum, e) => sum + e.amount);
 
-    final income = _transactionRepository
-        .filterTransactionsByType(transactionsByDate, 'income')
+    final incomes = _transactionRepository
+        .filterTransactionsByType(transactionsByDate, 'income');
+
+    final income = incomes
         .fold(0.0, (sum, e) => sum + e.amount);
 
     final previousTransactions =
@@ -94,6 +96,7 @@ class TransactionCubit extends Cubit<TransactionState> {
 
 
     return Statistics(
+      incomes: incomes,
       totalIncome: income,
       totalExpenses: totalExpenses,
       expensesPercentageChange: expensesChange,

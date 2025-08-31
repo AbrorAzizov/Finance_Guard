@@ -2,6 +2,7 @@ import 'package:finance_guard/core/constants/text_styles.dart';
 import 'package:finance_guard/core/dialog/loading_dialog.dart';
 import 'package:finance_guard/core/widgets/all_button.dart';
 import 'package:finance_guard/core/widgets/transaction_card.dart';
+import 'package:finance_guard/features/history/pages/transaction_history.dart';
 import 'package:finance_guard/features/home/bloc/transaction_bloc/transaction_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,7 +103,12 @@ class DayStatistics extends StatelessWidget {
                             SizedBox(height: 12.h),
                             SizedBox(
                               width: double.infinity,
-                              child: WatchAllButton(onPressed: () {}),
+                              child: WatchAllButton(onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                                );
+                              }),
                             ),
                           ],
                         ),
@@ -143,7 +149,12 @@ class DayStatistics extends StatelessWidget {
                             SizedBox(height: 12.h),
                             SizedBox(
                               width: double.infinity,
-                              child: WatchAllButton(onPressed: () {}),
+                              child: WatchAllButton(onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                                );
+                              }),
                             ),
                           ],
                         ),
@@ -158,7 +169,12 @@ class DayStatistics extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Expenses', style: AppTextStyles.statsTitle),
-                    AllButton(onPressed: () {},)
+                    AllButton(onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                      );
+                    },)
                   ],
                 ),
                 SizedBox(height: 12.h),
@@ -170,7 +186,12 @@ class DayStatistics extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Transaction History', style: AppTextStyles.statsTitle),
-                    AllButton(onPressed: () {},)
+                    AllButton(onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                      );
+                    },)
                   ],
                 ),
                 SizedBox(height: 12.h),

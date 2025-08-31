@@ -26,6 +26,7 @@ class TransactionRepoImp implements  TransactionRepository {
     await box.delete(id);
   }
 
+  @override
   List<TransactionEntity> filterTransactionsByDate(
       List<TransactionEntity> transactions, String period) {
     final now = DateTime.now();
@@ -52,7 +53,7 @@ class TransactionRepoImp implements  TransactionRepository {
     }).toList();
   }
 
-
+  @override
   List<TransactionEntity> filterTransactionsByPreviousDate(
       List<TransactionEntity> transactions, String period) {
     final now = DateTime.now();
@@ -89,7 +90,7 @@ class TransactionRepoImp implements  TransactionRepository {
   }
 
 
-
+  @override
   List<TransactionEntity> filterTransactionsByType(
       List<TransactionEntity> transactions, String type) {
 

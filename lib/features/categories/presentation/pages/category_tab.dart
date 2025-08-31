@@ -6,9 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/text_styles.dart';
 import '../../../../core/widgets/add_button.dart';
-import '../../../home/pages/transaction_page.dart';
+
 import '../bloc/categories_cubit.dart';
 import '../bloc/category_state.dart';
+import 'category_input_page.dart';
 
 
 class CategoryTab extends StatefulWidget {
@@ -49,7 +50,7 @@ class _CategoryTabState extends State<CategoryTab> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const TransactionPage(),
+                            builder: (_) => const CategoryInputPage(),
                           ),
                         );
                       },

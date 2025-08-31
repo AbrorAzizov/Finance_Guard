@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
 
-import '../../data/category_entity.dart';
+import '../../data/entity/category_entity.dart';
 import '../../domain/repo/categories_repo.dart';
 import 'category_state.dart';
 

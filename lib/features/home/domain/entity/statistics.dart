@@ -7,9 +7,11 @@ class Statistics {
   final double expensesPercentageChange;
   final double incomePercentageChange;
   final List<TransactionEntity> expenses;
+  final List<TransactionEntity> incomes;
 
   Statistics(
       {
+        required this.incomes,
         required this.expenses,
         required this.totalIncome,
       required this.totalExpenses,

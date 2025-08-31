@@ -1,7 +1,7 @@
 import 'package:finance_guard/core/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../features/categories/data/category_entity.dart';
+import '../../features/categories/data/entity/category_entity.dart';
 import '../constants/app_colors.dart';
 
 
@@ -91,20 +91,20 @@ class SelectingCategory extends StatelessWidget {
               );
             },
           ),
-          SizedBox(height: 3.h),
+          SizedBox(height: 5.h),
           SizedBox(
             height: 32.h,
             width: 72.w,
             child: GestureDetector(
               onTap: () {
-                // TODO: добавить логику добавления категории
+
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
                     child: Icon(Icons.add, size: 14.h, color: Colors.black),
-                    maxRadius: 14,
+                    maxRadius: 12,
                     backgroundColor: Colors.white,
                   ),
                   SizedBox(width: 3.w),

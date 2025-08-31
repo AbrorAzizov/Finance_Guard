@@ -10,6 +10,7 @@ import '../../../core/widgets/all_button.dart';
 import '../../../core/widgets/expense_chart.dart';
 import '../../../core/widgets/transaction_card.dart';
 import '../../../core/widgets/wach_all_button.dart';
+import '../../history/pages/transaction_history.dart';
 import '../bloc/transaction_bloc/transaction_cubit.dart';
 
 class WeekStatistics extends StatefulWidget {
@@ -29,7 +30,7 @@ class _WeekStatisticsState extends State<WeekStatistics> {
         if (state is TransactionStateSummary) {
           final dayData = state.weekData; // берём именно дневную статистику
           final transactions = state.transactions;
-          return SingleChildScrollView(
+          return   SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -107,7 +108,12 @@ class _WeekStatisticsState extends State<WeekStatistics> {
                             SizedBox(height: 12.h),
                             SizedBox(
                               width: double.infinity,
-                              child: WatchAllButton(onPressed: () {}),
+                              child: WatchAllButton(onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                                );
+                              }),
                             ),
                           ],
                         ),
@@ -148,7 +154,12 @@ class _WeekStatisticsState extends State<WeekStatistics> {
                             SizedBox(height: 12.h),
                             SizedBox(
                               width: double.infinity,
-                              child: WatchAllButton(onPressed: () {}),
+                              child: WatchAllButton(onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                                );
+                              }),
                             ),
                           ],
                         ),
@@ -163,7 +174,12 @@ class _WeekStatisticsState extends State<WeekStatistics> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Expenses', style: AppTextStyles.statsTitle),
-                    AllButton(onPressed: () {},)
+                    AllButton(onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                      );
+                    },)
                   ],
                 ),
                 SizedBox(height: 12.h),
@@ -175,7 +191,12 @@ class _WeekStatisticsState extends State<WeekStatistics> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Transaction History', style: AppTextStyles.statsTitle),
-                    AllButton(onPressed: () {},)
+                    AllButton(onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                      );
+                    },)
                   ],
                 ),
                 SizedBox(height: 12.h),

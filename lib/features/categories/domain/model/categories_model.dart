@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/category_entity.dart';
+import '../../data/entity/category_entity.dart';
 
 part 'categories_model.g.dart';
 

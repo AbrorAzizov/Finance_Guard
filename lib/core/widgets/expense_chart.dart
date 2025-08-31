@@ -12,7 +12,7 @@ import '../../features/home/useCase/group_expenses_by_name.dart';
 class ExpensesPieChartCard extends StatefulWidget {
   final List<TransactionEntity> expenses;
 
-  ExpensesPieChartCard({super.key, required this.expenses});
+  const ExpensesPieChartCard({super.key, required this.expenses});
 
   @override
   State<ExpensesPieChartCard> createState() => _ExpensesPieChartCardState();
@@ -48,18 +48,19 @@ class _ExpensesPieChartCardState extends State<ExpensesPieChartCard> {
                       PieChartData(
                         sectionsSpace: 0,
                         centerSpaceRadius: 65.r,
-                        sections: data
-                            .map(
+                        sections: data.map(
                               (e) => PieChartSectionData(
                             color: Color(e.categoryColor),
                             value: e.amount,
                             radius: 28.r,
                             showTitle: false,
                           ),
-                        )
-                            .toList(),
+                        ).toList(),
                       ),
+                      swapAnimationDuration: const Duration(milliseconds: 800), // время анимации
+                      swapAnimationCurve: Curves.easeInOut, // тип анимации
                     ),
+
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

@@ -2,9 +2,8 @@ import 'package:finance_guard/features/categories/domain/repo/categories_repo.da
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../domain/model/categories_model.dart';
-import '../category_entity.dart';
+import '../entity/category_entity.dart';
 
 class CategoriesRepoImp implements CategoriesRepo {
   Box<CategoryModel> box;
@@ -34,7 +33,8 @@ class CategoriesRepoImp implements CategoriesRepo {
         name: "Rent",
         iconCodePoint: Icons.home_work_outlined.codePoint,
         iconFontFamily: Icons.home_work_outlined.fontFamily,
-        color: Colors.purple.value,   isTracked: true
+        color: Colors.purple.value,
+          isTracked: true
       ),
       CategoryEntity(
         id: const Uuid().v4(),
@@ -61,11 +61,12 @@ class CategoriesRepoImp implements CategoriesRepo {
         .toList();
   }
 
-  @override
+
   Future<void> deleteCategory(String id) async {
     await box.delete(id);
   }
 
+  @override
   Future<void> editCategory(CategoryEntity updatedCategory) async {
     await box.put(updatedCategory.id, CategoryModel.fromEntity(updatedCategory));
   }

@@ -1,4 +1,4 @@
-import 'package:finance_guard/features/categories/data/category_entity.dart';
+import 'package:finance_guard/features/categories/data/entity/category_entity.dart';
 import 'package:finance_guard/features/categories/presentation/bloc/categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

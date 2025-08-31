@@ -10,6 +10,7 @@ import '../../../core/widgets/all_button.dart';
 import '../../../core/widgets/expense_chart.dart';
 import '../../../core/widgets/transaction_card.dart';
 import '../../../core/widgets/wach_all_button.dart';
+import '../../history/pages/transaction_history.dart';
 import '../bloc/transaction_bloc/transaction_cubit.dart';
 
 class MonthStatistics extends StatefulWidget {
@@ -106,7 +107,12 @@ class _MonthStatisticsState extends State<MonthStatistics> {
                             SizedBox(height: 12.h),
                             SizedBox(
                               width: double.infinity,
-                              child: WatchAllButton(onPressed: () {}),
+                              child: WatchAllButton(onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                                );
+                              }),
                             ),
                           ],
                         ),
@@ -147,7 +153,12 @@ class _MonthStatisticsState extends State<MonthStatistics> {
                             SizedBox(height: 12.h),
                             SizedBox(
                               width: double.infinity,
-                              child: WatchAllButton(onPressed: () {}),
+                              child: WatchAllButton(onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                                );
+                              }),
                             ),
                           ],
                         ),
@@ -162,7 +173,12 @@ class _MonthStatisticsState extends State<MonthStatistics> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Expenses', style: AppTextStyles.statsTitle),
-                    AllButton(onPressed: () {},)
+                    AllButton(onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                      );
+                    },)
                   ],
                 ),
                 SizedBox(height: 12.h),
@@ -174,7 +190,12 @@ class _MonthStatisticsState extends State<MonthStatistics> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Transaction History', style: AppTextStyles.statsTitle),
-                    AllButton(onPressed: () {},)
+                    AllButton(onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const TransactionHistory()),
+                      );
+                    },)
                   ],
                 ),
                 SizedBox(height: 12.h),

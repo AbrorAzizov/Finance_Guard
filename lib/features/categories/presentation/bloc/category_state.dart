@@ -1,5 +1,5 @@
 
-import '../../data/category_entity.dart';
+import '../../data/entity/category_entity.dart';
 
 abstract class CategoryState {
 
