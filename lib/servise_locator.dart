@@ -1,3 +1,5 @@
+import 'package:finance_guard/features/budget/data/repository/limits_repo_impl.dart';
+import 'package:finance_guard/features/budget/domain/model/limits_model.dart';
 import 'package:finance_guard/features/categories/domain/model/categories_model.dart';
 import 'package:finance_guard/features/home/bloc/transaction_bloc/transaction_cubit.dart';
 import 'package:finance_guard/features/home/data/repository/transaction_repo_imp.dart';
@@ -5,6 +7,7 @@ import 'package:finance_guard/features/home/domain/repository/transaction_repo.d
 import 'package:finance_guard/features/welcome%20&%20balance%20cubit/repo/balance_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
+import 'features/budget/domain/repo/limits_repo_imp.dart';
 import 'features/categories/data/repository/categories_repo_imp.dart';
 import 'features/categories/domain/repo/categories_repo.dart';
 import 'features/categories/presentation/bloc/categories_cubit.dart';
@@ -25,6 +28,8 @@ Future<void> setupServiceLocator() async {
   final categoryBox = await Hive.openBox<CategoryModel>('categoriesBox');
   sl.registerSingleton<CategoriesRepo>(CategoriesRepoImp(box: categoryBox));
 
+  final limitsBox = await Hive.openBox<LimitsModel>('limitsBox');
+  sl.registerSingleton<LimitsRepo>(LimitsRepoImpl(box: limitsBox));
 
   sl.registerFactory(() => CategoryCubit(sl<CategoriesRepo>()));
 

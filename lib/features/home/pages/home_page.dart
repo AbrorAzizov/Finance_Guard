@@ -1,4 +1,5 @@
 import 'package:finance_guard/core/constants/app_colors.dart';
+import 'package:finance_guard/features/budget/pages/budget_tab.dart';
 import 'package:flutter/material.dart';
 
 import '../../categories/presentation/pages/category_tab.dart';
@@ -21,9 +22,8 @@ class _HomePageState extends State<HomePage> {
 
     const CategoryTab(),
 
-    const Center(
-      child: Text('Settings', style: TextStyle(color: Colors.white)),
-    ),
+    const BudgetTab(),
+
     const Center(
       child: Text('Settings', style: TextStyle(color: Colors.white)),
     ),

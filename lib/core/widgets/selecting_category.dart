@@ -46,7 +46,6 @@ class SelectingCategory extends StatelessWidget {
             itemBuilder: (context, index) {
               final category = categories[index];
               final isSelected = category.id == selectedCategory?.id;
-              print(categories.length);
               return GestureDetector(
                 onTap: () => onSelect(category),
                 child: Container(

@@ -54,7 +54,7 @@ class _MonthStatisticsState extends State<MonthStatistics> {
                           ),
                           // пока процент фиксированный, но можно связать с dayData.incomePercentageChange
                           Text(
-                            dayData.expensesPercentageChange >= 0
+                            dayData.incomePercentageChange >= 0
                                 ? "+${dayData.incomePercentageChange.toStringAsFixed(2)}%"
                                 : "${dayData.incomePercentageChange.toStringAsFixed(2)}%",
                             style: dayData.incomePercentageChange >= 0
