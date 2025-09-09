@@ -7,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:hive_flutter/adapters.dart';
 
-import 'features/budget/domain/model/limits_model.dart';
+import 'features/budget/bloc/goal/goal_cubit.dart';
+import 'features/budget/domain/model/goal/goal_model.dart';
+import 'features/budget/domain/model/limit/limits_model.dart';
 import 'features/categories/domain/model/categories_model.dart';
 import 'features/categories/presentation/bloc/categories_cubit.dart';
 import 'features/home/bloc/transaction_bloc/transaction_cubit.dart';
@@ -20,11 +22,15 @@ void main() async {
   Hive.registerAdapter(TransactionModelAdapter());
   Hive.registerAdapter(CategoryModelAdapter());
   Hive.registerAdapter(LimitsModelAdapter());
+  Hive.registerAdapter(GoalModelAdapter());
   await setupServiceLocator();
 
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => sl<GoalsCubit>()..addDefaultGoal(),
+        ),
         BlocProvider<TransactionCubit>(
           create: (_) => sl<TransactionCubit>(),
         ),

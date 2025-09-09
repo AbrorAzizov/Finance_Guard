@@ -9,15 +9,15 @@ import '../../categories/presentation/widgets/enter_category.dart';
 
 
 
+class EditGoal extends StatefulWidget {
 
-class AddGoalPage extends StatefulWidget {
-  const AddGoalPage({super.key});
+  const EditGoal({super.key});
 
   @override
-  State<AddGoalPage> createState() => _AddGoalPageState();
+  State<EditGoal> createState() => _EditGoalState();
 }
 
-class _AddGoalPageState extends State<AddGoalPage> {
+class _EditGoalState extends State<EditGoal> {
   String goalName = "";
   String amount = '';
 
@@ -52,7 +52,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
 
                 CurrencyInput(selectedAmount: (value) {
                   setState(() {
-                    amount = value; 
+                    amount = value;
                   });
                 },),
 

@@ -47,7 +47,7 @@ class LimitCard extends StatelessWidget {
           ),
           SizedBox(height: 8.h),
 
-          // --- Анимированный прогресс ---
+
           TweenAnimationBuilder<double>(
             tween: Tween<double>(begin: 0, end: value),
             duration: const Duration(milliseconds: 800),

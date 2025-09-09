@@ -26,7 +26,7 @@ class CategoriesRepoImp implements CategoriesRepo {
         name: "Drink",
         iconCodePoint: Icons.local_drink.codePoint,
         iconFontFamily: Icons.local_drink.fontFamily,
-        color: Colors.red.value,   isTracked: true
+        color: Colors.red.value, isTracked: true
       ),
       CategoryEntity(
         id: const Uuid().v4(),

@@ -1,6 +1,7 @@
 import 'package:finance_guard/core/dialog/loading_dialog.dart';
 import 'package:finance_guard/core/widgets/add_button.dart';
 import 'package:finance_guard/core/widgets/notifications_button.dart';
+import 'package:finance_guard/features/budget/bloc/goal/goal_cubit.dart';
 import 'package:finance_guard/features/budget/domain/repo/limits_repo_imp.dart';
 import 'package:finance_guard/features/budget/pages/limits_edit_page.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,10 @@ import '../../../core/constants/text_styles.dart';
 import '../../../servise_locator.dart';
 import '../../home/bloc/transaction_bloc/transaction_cubit.dart';
 import '../../home/bloc/transaction_bloc/transaction_state.dart';
+import '../../welcome & balance cubit/repo/balance_repo.dart';
+import '../bloc/goal/goals_state.dart';
 import '../data/entity/limits_entity.dart';
+import '../widgets/goal_card.dart';
 import '../widgets/limit_widget.dart';
 
 class BudgetTab extends StatefulWidget {
@@ -22,11 +26,13 @@ class BudgetTab extends StatefulWidget {
 
 class _BudgetTabState extends State<BudgetTab> {
   late final Future<LimitsEntity> _limitsFuture;
+  final total = sl<BalanceRepo>().getTotal();
 
   @override
   void initState() {
     super.initState();
     _limitsFuture = sl<LimitsRepo>().getLimits();
+     sl<GoalsCubit>().loadGoals();
   }
 
   @override
@@ -49,7 +55,6 @@ class _BudgetTabState extends State<BudgetTab> {
             Text('Limits', style: AppTextStyles.statsTitle),
             SizedBox(height: 12.h),
 
-            /// оборачиваем в FutureBuilder
             FutureBuilder<LimitsEntity>(
               future: _limitsFuture,
               builder: (context, snapshot) {
@@ -78,6 +83,7 @@ class _BudgetTabState extends State<BudgetTab> {
                         children: [
                           Expanded(
                             child: LimitCard(
+
                               title: "Monthly",
                               expense: monthExpenses,
                               limit: limits.monthlyLimit,
@@ -130,7 +136,7 @@ class _BudgetTabState extends State<BudgetTab> {
                 );
               },
             ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -143,19 +149,36 @@ class _BudgetTabState extends State<BudgetTab> {
                 },)
               ],
             ),
-            SizedBox(height: 12.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Regular Payments', style: AppTextStyles.statsTitle),
-                AddCircleButton(onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) =>  LimitsEditPage()),
+            BlocBuilder<GoalsCubit, GoalsState>(
+              builder: (context, state) {
+                if (state is GoalsLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is GoalsLoaded) {
+
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: state.goals.length,
+                      itemBuilder: (context, index) {
+                        final goal = state.goals[index];
+                        print(state.goals.length);
+                        final totalPercentage = (goal.targetAmount / total );
+                        return GoalCard (
+                          totalPercentage: totalPercentage,
+                          goal : goal,
+                          total: total
+                        );
+                    
+                                     },),
                   );
-                },)
-              ],
+                } else if (state is GoalsError) {
+                  return Center(child: Text("Error: ${state.message}"));
+                }
+                return SizedBox.shrink();
+              },
             ),
+
+            SizedBox(height: 12.h),
+
           ],
         ),
       ),

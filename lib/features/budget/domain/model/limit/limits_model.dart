@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import '../../data/entity/limits_entity.dart';
+import '../../../data/entity/limits_entity.dart';
 part 'limits_model.g.dart';
 
 @HiveType(typeId: 3)

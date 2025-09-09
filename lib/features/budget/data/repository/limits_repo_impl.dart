@@ -1,7 +1,7 @@
 import 'package:finance_guard/features/budget/data/entity/limits_entity.dart';
 import 'package:hive/hive.dart';
 
-import '../../domain/model/limits_model.dart';
+import '../../domain/model/limit/limits_model.dart';
 import '../../domain/repo/limits_repo_imp.dart';
 
 

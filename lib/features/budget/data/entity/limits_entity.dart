@@ -4,5 +4,5 @@ class LimitsEntity {
   LimitsEntity({required this.monthlyLimit});
 
 
-  double get weeklyLimit => monthlyLimit / 4;
+
 }
