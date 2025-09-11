@@ -40,7 +40,7 @@ class _EditGoalState extends State<EditGoal> {
                 Text('Add Goal', style: AppTextStyles.screenTitle),
                 SizedBox(height: 30.h),
 
-                /// Ввод названия категории
+
                 CategoryInput(
                   onCategoryChanged: (value) {
                     setState(() {

@@ -17,7 +17,6 @@ import '../../../servise_locator.dart';
 import '../../welcome & balance cubit/repo/balance_repo.dart';
 import '../bloc/transaction_bloc/transaction_state.dart';
 
-
 class MainTabScreen extends StatefulWidget {
   const MainTabScreen({super.key});
 
@@ -58,7 +57,6 @@ class _MainTabScreenState extends State<MainTabScreen> {
                   children: [
                     SizedBox(height: 20.h),
 
-// Заголовок + кнопки
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -84,7 +82,7 @@ class _MainTabScreenState extends State<MainTabScreen> {
 
                     SizedBox(height: 40.h),
 
-// TabBar
+
                     Container(
                       height: 40.h,
                       width: MediaQuery.of(context).size.width * 0.75 ,
@@ -111,8 +109,7 @@ class _MainTabScreenState extends State<MainTabScreen> {
                     ),
 
                     SizedBox(height: 16.h),
-
-// Контент вкладок
+                    
                     Expanded(
                       child: TabBarView(
                         children: [

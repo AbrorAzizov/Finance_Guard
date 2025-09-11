@@ -27,9 +27,7 @@ class _HomePageState extends State<HomePage> {
     const Center(
       child: Text('Settings', style: TextStyle(color: Colors.white)),
     ),
-    const Center(
-      child: Text('Settings', style: TextStyle(color: Colors.white)),
-    ),
+
   ];
 
 
@@ -59,13 +57,10 @@ class _HomePageState extends State<HomePage> {
             label: "Budgets",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.credit_card_outlined),
-            label: "Debts",
+            icon: Icon(Icons.lightbulb),
+            label: "AI overview",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: "Settings",
-          ),
+
         ],
       ),
     );
