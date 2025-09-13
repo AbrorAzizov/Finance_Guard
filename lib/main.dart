@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
               scaffoldBackgroundColor: const Color(0xFF0A0E21),
               textTheme: Typography.whiteMountainView,
-              // 👈 optional for dark theme
+
               fontFamily: 'SFPro'
           ),
           home: Builder(
