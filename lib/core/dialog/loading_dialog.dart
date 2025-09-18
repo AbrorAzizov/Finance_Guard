@@ -13,10 +13,10 @@ class Loading extends StatelessWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       child: Container(
-        height: 200,
-        width: 200,
+        height: 100,
+        width: 100,
         decoration: BoxDecoration(
-          color: AppColors.primary,
+          color: AppColors.textPrimary,
           borderRadius: BorderRadius.circular(20),
           boxShadow: const [
             BoxShadow(
@@ -28,7 +28,7 @@ class Loading extends StatelessWidget {
         ),
         child:  Center(
           child: SpinKitCubeGrid(
-            color: AppColors.primary,
+            color: Colors.indigo,
             size: 50,
           ),
         ),

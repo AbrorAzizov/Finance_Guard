@@ -6,32 +6,46 @@ import 'package:intl/intl.dart';
 
 import '../service/chat_service.dart';
 
+
 class ChatRepoImp implements ChatRepo {
-  final service = DeepSeekCloudService();
+  final DeepSeekCloudService _chatService;
   final formatter = DateFormat('yyyy-MM-dd');
+
+  ChatRepoImp(this._chatService);
 
   @override
   Future<ChatMessage> analyzeExpenses(List<TransactionEntity> expenses) async {
-    final expenseForAI = expenses.map((e) =>
-        AiTransactionEntity(
-          date: formatter.format(e.date),
-          amount: e.amount,
-          name: e.name,
-          comment: e.comment,
-        ).toJson()).toList();
+    try {
+      final expenseForAI = expenses.map((e) =>
+          AiTransactionEntity(
+            date: formatter.format(e.date),
+            amount: e.amount,
+            name: e.name,
+            comment: e.comment,
+          ).toJson()).toList();
 
-    final response = await service.sendMessage(
-        "Вот список транзакций: $expenseForAI. "
-            "Проанализируй расходы и дай короткий совет, как улучшить финансовое поведение."
-    );
+      final response = await _chatService.sendMessage(
+          "Вот список транзакций: $expenseForAI. "
+              "Проанализируй расходы и дай короткий совет, как улучшить финансовое поведение."
+      );
 
-    return ChatMessage(isUser: false, content: response);
+      return ChatMessage(isUser: false, content: response);
+    } catch (e) {
+      // Log the error for debugging
+      print('Error analyzing expenses: $e');
+      return ChatMessage(isUser: false, content: "Не удалось проанализировать расходы. Пожалуйста, попробуйте позже.");
+    }
   }
 
   @override
   Future<ChatMessage> sendMessage(String message) async {
-    final response = await service.sendMessage(message);
-    return ChatMessage(isUser: false, content: response);
+    try {
+      final response = await _chatService.sendMessage(message);
+      return ChatMessage(isUser: false, content: response);
+    } catch (e) {
+      // Log the error for debugging
+      print('Error sending message: $e');
+      return ChatMessage(isUser: false, content: "Не удалось отправить сообщение. Пожалуйста, попробуйте позже.");
+    }
   }
-
 }

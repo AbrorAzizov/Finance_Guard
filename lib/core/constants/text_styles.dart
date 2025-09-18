@@ -29,6 +29,14 @@ abstract class AppTextStyles {
     color: Color(0xFFFFFFFF), // Dark gray
   );
 
+  static  TextStyle chatTitle = TextStyle(
+    fontSize: 30.h,
+    fontWeight: FontWeight.bold,
+    color: Color(0xFFFFFFFF),
+
+
+
+  );
   /// Percentage change (positive): "+48.00%"
   static  TextStyle percentageChangePositive = TextStyle(
     fontSize: 17.h,

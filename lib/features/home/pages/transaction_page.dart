@@ -26,7 +26,7 @@ class _TransactionPageState extends State<TransactionPage> {
         child: Scaffold(
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -35,9 +35,9 @@ class _TransactionPageState extends State<TransactionPage> {
                       Navigator.pop(context);
                     },
                   ),
-                  SizedBox(height: 30.h),
+                  SizedBox(height: 20.h),
                   Text('Add Transaction', style: AppTextStyles.screenTitle),
-                  SizedBox(height: 30.h),
+                  SizedBox(height: 20.h),
                   Container(
                     height: 40.h,
                     width: MediaQuery.of(context).size.width * 0.55,

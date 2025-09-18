@@ -1,4 +1,5 @@
 import 'package:finance_guard/core/constants/app_colors.dart';
+import 'package:finance_guard/features/chat/view/ai_overview_page.dart';
 import 'package:finance_guard/features/home/bloc/transaction_bloc/transaction_cubit.dart';
 import 'package:finance_guard/features/home/pages/transaction_page.dart';
 import 'package:finance_guard/features/home/view/day_statistics.dart';
@@ -74,7 +75,12 @@ class _MainTabScreenState extends State<MainTabScreen> {
                               },
                             ),
                             SizedBox(width: 8.w),
-                            NotificationsButton(onPressed: () {}),
+                            NotificationsButton(onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const AiOverviewPage()),
+                              );
+                            }),
                           ],
                         ),
                       ],

@@ -1,38 +1,39 @@
 import 'package:dio/dio.dart';
 
 class DeepSeekCloudService {
-  static String baseUrl = "https://openrouter.ai/api/v1";
+  static String baseUrl = "https://openrouter.ai/api/v1/chat/completions";
   static String model = "deepseek/deepseek-chat-v3.1:free";
-  static String key = "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";
-
+  static String key = "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"; // твой ключ
 
   Future<String> sendMessage(String content) async {
     final Dio dio = Dio();
-    try{
-      final response = await dio.post(baseUrl,options: Options(
-        headers:  {
-        "Authorization": "Bearer $key",
-        "Content-Type": "application/json",
-        },
-      ),
+    try {
+      final response = await dio.post(
+        baseUrl,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $key",
+            "Content-Type": "application/json",
+          },
+        ),
         data: {
           "model": model,
           "messages": [
-            {
-              "role": "system",
-              "content":"You are helpful financial assistant."
-            },
-            {
-              "role": "user","content": content
-            },
-
+            {"role": "system", "content": "You are a helpful financial assistant."},
+            {"role": "user", "content": content},
           ],
-        }
+        },
       );
 
-      return response.data["choices"][0]["message"]["content"];
+      final data = response.data;
+      print("DEBUG RESPONSE: $data");
 
-    }catch (e) {
+      if (data is Map && data["choices"] is List && data["choices"].isNotEmpty) {
+        return data["choices"][0]["message"]["content"];
+      } else {
+        return "⚠ Неверный формат ответа: $data";
+      }
+    } catch (e) {
       return "⚠ Ошибка: $e";
     }
   }
