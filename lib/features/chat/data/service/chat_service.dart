@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class DeepSeekCloudService {
   static String baseUrl = "https://openrouter.ai/api/v1/chat/completions";
   static String model = "deepseek/deepseek-chat-v3.1:free";
-  static String key = "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"; // твой ключ
+  static String key = "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"; // твой ключ
 
   Future<String> sendMessage(String content) async {
     final Dio dio = Dio();

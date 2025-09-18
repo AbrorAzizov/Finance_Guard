@@ -8,4 +8,9 @@ class GoalEntity {
     required this.title,
     required this.targetAmount,
   });
+
+  Map<String,dynamic> toJson() =>{
+    "title": title,
+    "targetAmount":targetAmount
+  };
 }

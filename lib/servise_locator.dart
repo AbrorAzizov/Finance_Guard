@@ -46,11 +46,11 @@ Future<void> setupServiceLocator() async {
   sl.registerSingleton<DeepSeekCloudService>(DeepSeekCloudService());
 
   sl.registerSingleton<ChatRepo>(
-    ChatRepoImp(sl<DeepSeekCloudService>()),
+    ChatRepoImp(sl<DeepSeekCloudService>(),sl<GoalsRepo>()),
   );
 
 
-  sl.registerFactory(() => ChatCubit(sl<ChatRepo>()));
+  sl.registerFactory(() => ChatCubit(sl<ChatRepo>(),));
 
   sl.registerFactory(() => CategoryCubit(sl<CategoriesRepo>()));
 

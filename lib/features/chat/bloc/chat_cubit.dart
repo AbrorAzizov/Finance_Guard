@@ -8,6 +8,7 @@ import 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   final ChatRepo repo;
+
   final List<ChatMessage> _messages = [];
 
   ChatCubit(this.repo) : super(ChatInitial());
@@ -21,8 +22,22 @@ class ChatCubit extends Cubit<ChatState> {
 
 
       final aiMessage = await repo.sendMessage(text);
+
       _messages.add(aiMessage);
 
+      emit(ChatLoaded(List.from(_messages)));
+    } catch (e) {
+      print(e);
+      emit(ChatError(e.toString()));
+    }
+  }
+  Future<void> analyzeMyGoals(List<TransactionEntity> expenses) async {
+    try {
+      _messages.add(ChatMessage(isUser: true, content: 'analyze my goals '));
+
+      emit(ChatLoading());
+      final aiMessage = await repo.analyzeMyGoals(expenses);
+      _messages.add(aiMessage);
       emit(ChatLoaded(List.from(_messages)));
     } catch (e) {
       print(e);
@@ -32,8 +47,9 @@ class ChatCubit extends Cubit<ChatState> {
 
   Future<void> analyzeExpenses(List<TransactionEntity> expenses) async {
     try {
-      emit(ChatLoading());
+      _messages.add(ChatMessage(isUser: true, content: 'analyze my expenses '));
 
+      emit(ChatLoading());
       final aiMessage = await repo.analyzeExpenses(expenses);
       _messages.add(aiMessage);
 
@@ -42,5 +58,7 @@ class ChatCubit extends Cubit<ChatState> {
       print(e);
       emit(ChatError(e.toString()));
     }
+
+
   }
 }

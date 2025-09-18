@@ -5,4 +5,5 @@ import '../../data/entity/chat_message_entity.dart';
 abstract class ChatRepo {
   Future<ChatMessage> sendMessage (String content);
   Future<ChatMessage> analyzeExpenses (List<TransactionEntity> expenses);
+  Future<ChatMessage> analyzeMyGoals (List<TransactionEntity> expenses);
 }
