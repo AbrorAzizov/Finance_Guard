@@ -21,41 +21,52 @@ import 'features/chat/data/repository/chat_repo_imp.dart';
 import 'features/chat/domain/repo/chat_repo.dart';
 import 'features/home/data/model/transaction_model.dart';
 import 'features/welcome & balance cubit/repo/balance_repo_imp.dart';
-
 final sl = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
+  // Open Hive boxes (these must be awaited before registration)
   final box = await Hive.openBox<TransactionModel>('transactions');
-  sl.registerSingleton<TransactionRepository>(
-    TransactionRepoImp(box: box),
-  );
-
   final balanceBox = await Hive.openBox<double>('balanceBox');
-  sl.registerSingleton<BalanceRepo>(BalanceRepositoryImp(balanceBox));
-
   final categoryBox = await Hive.openBox<CategoryModel>('categoriesBox');
-  sl.registerSingleton<CategoriesRepo>(CategoriesRepoImp(box: categoryBox));
-
   final limitsBox = await Hive.openBox<LimitsModel>('limitsBox');
-  sl.registerSingleton<LimitsRepo>(LimitsRepoImpl(box: limitsBox));
-
   final goalBox = await Hive.openBox<GoalModel>('goalsBox');
-  sl.registerSingleton<GoalsRepo>(GoalsRepoImpl(box: goalBox));
 
-
-  sl.registerSingleton<DeepSeekCloudService>(DeepSeekCloudService());
-
-  sl.registerSingleton<ChatRepo>(
-    ChatRepoImp(sl<DeepSeekCloudService>(),sl<GoalsRepo>()),
+  // Repositories (lazy, created only when needed)
+  sl.registerLazySingleton<TransactionRepository>(
+        () => TransactionRepoImp(box: box),
   );
 
+  sl.registerLazySingleton<BalanceRepo>(
+        () => BalanceRepositoryImp(balanceBox),
+  );
 
-  sl.registerFactory(() => ChatCubit(sl<ChatRepo>(),));
+  sl.registerLazySingleton<CategoriesRepo>(
+        () => CategoriesRepoImp(box: categoryBox),
+  );
 
+  sl.registerLazySingleton<LimitsRepo>(
+        () => LimitsRepoImpl(box: limitsBox),
+  );
+
+  sl.registerLazySingleton<GoalsRepo>(
+        () => GoalsRepoImpl(box: goalBox),
+  );
+
+  // Services
+  sl.registerLazySingleton<DeepSeekCloudService>(
+        () => DeepSeekCloudService(),
+  );
+
+  // Chat Repo (depends on DeepSeekCloudService + GoalsRepo)
+  sl.registerLazySingleton<ChatRepo>(
+        () => ChatRepoImp(sl<DeepSeekCloudService>(), sl<GoalsRepo>()),
+  );
+
+  // Cubits
+  sl.registerFactory(() => ChatCubit(sl<ChatRepo>()));
   sl.registerFactory(() => CategoryCubit(sl<CategoriesRepo>()));
 
-  sl.registerSingleton(GoalsCubit(sl<GoalsRepo>()));
-
-  sl.registerSingleton<TransactionCubit>(TransactionCubit());
-
+  // These cubits likely need to be alive globally
+  sl.registerLazySingleton(() => GoalsCubit(sl<GoalsRepo>()));
+  sl.registerLazySingleton(() => TransactionCubit());
 }

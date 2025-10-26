@@ -8,7 +8,7 @@ class ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(message.content);
+    debugPrint(message.content);
     final isUser = message.isUser;
 
     return Row(

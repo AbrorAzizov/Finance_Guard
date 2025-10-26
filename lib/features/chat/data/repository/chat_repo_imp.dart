@@ -3,6 +3,7 @@ import 'package:finance_guard/features/chat/data/entity/chat_message_entity.dart
 import 'package:finance_guard/features/chat/data/entity/transasaction_ai.dart';
 import 'package:finance_guard/features/chat/domain/repo/chat_repo.dart';
 import 'package:finance_guard/features/home/domain/entity/transaction_entity.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 import '../service/chat_service.dart';
@@ -35,7 +36,7 @@ class ChatRepoImp implements ChatRepo {
       return ChatMessage(isUser: false, content: response);
     } catch (e) {
       // Log the error for debugging
-      print('Error analyzing expenses: $e');
+      debugPrint('Error analyzing expenses: $e');
       return ChatMessage(isUser: false, content: "Не удалось проанализировать расходы. Пожалуйста, попробуйте позже.");
     }
   }
@@ -47,7 +48,7 @@ class ChatRepoImp implements ChatRepo {
       return ChatMessage(isUser: false, content: response);
     } catch (e) {
       // Log the error for debugging
-      print('Error sending message: $e');
+      debugPrint('Error sending message: $e');
       return ChatMessage(isUser: false, content: "Не удалось отправить сообщение. Пожалуйста, попробуйте позже.");
     }
   }
@@ -75,7 +76,7 @@ class ChatRepoImp implements ChatRepo {
       return ChatMessage(isUser: false, content: response);
     } catch (e) {
       // Log the error for debugging
-      print('Error analyzing expenses: $e');
+      debugPrint('Error analyzing expenses: $e');
       return ChatMessage(isUser: false, content: "Не удалось проанализировать расходы. Пожалуйста, попробуйте позже.");
     }
   }

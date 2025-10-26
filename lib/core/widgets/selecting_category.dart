@@ -61,6 +61,9 @@ class SelectingCategory extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleAvatar(
+                        maxRadius: 14.r,
+                        backgroundColor: Color(category.color),
+
                         child: Icon(
                           IconData(
                             category.iconCodePoint,
@@ -69,9 +72,7 @@ class SelectingCategory extends StatelessWidget {
                           size: 14.h,
                           color: Colors.black,
                         ),
-                        maxRadius: 14.r,
-                        backgroundColor: Color(category.color),
-                      ),
+                    ),
                       SizedBox(width: 5.w),
                       Flexible(
                         child: Text(
@@ -108,9 +109,10 @@ class SelectingCategory extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    child: Icon(Icons.add, size: 14.h, color: Colors.black),
                     maxRadius: 12,
                     backgroundColor: Colors.white,
+                    child: Icon(Icons.add, size: 14.h, color: Colors.black),
+
                   ),
                   SizedBox(width: 3.w),
                   Text(

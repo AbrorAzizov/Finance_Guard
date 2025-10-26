@@ -1,6 +1,7 @@
 
 
 
+import 'package:finance_guard/features/budget/pages/edit_goal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,11 +16,11 @@ class GoalCard extends StatelessWidget {
   final double total;
 
   const GoalCard({
-    Key? key,
+    super.key,
     required this.totalPercentage,
     required this.goal,
     required this.total,
-  }) : super(key: key);
+  }) ;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,10 @@ class GoalCard extends StatelessWidget {
                   width: 90.w,
                   height: 40,
                   child: EditButton(onPressed: () {
-
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) =>  EditGoal(id: goal.id)),
+                    );
                   },),
                 ),
               ],
@@ -70,11 +74,11 @@ class GoalCard extends StatelessWidget {
 
             TweenAnimationBuilder<double>(
               tween: Tween<double>(begin: 0, end: total),
-              duration: const Duration(milliseconds: 800),
+              duration: const Duration(milliseconds: 2000),
               curve: Curves.easeInOut,
               builder: (context, animatedValue, child) {
                 return LinearProgressIndicator(
-                  backgroundColor: AppColors.buttonColor.withOpacity(0.3),
+                  backgroundColor: AppColors.buttonColor..withValues(alpha: 0.3),
                   valueColor: AlwaysStoppedAnimation(AppColors.buttonColor),
                   minHeight: 15.h,
                   value: animatedValue,

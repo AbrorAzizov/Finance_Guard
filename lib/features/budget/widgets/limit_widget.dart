@@ -54,7 +54,7 @@ class LimitCard extends StatelessWidget {
             curve: Curves.easeInOut,
             builder: (context, animatedValue, child) {
               return LinearProgressIndicator(
-                backgroundColor: AppColors.buttonColor.withOpacity(0.3),
+                backgroundColor: AppColors.buttonColor..withValues(alpha: 0.3),
                 valueColor: AlwaysStoppedAnimation(AppColors.buttonColor),
                 minHeight: 15.h,
                 value: animatedValue,

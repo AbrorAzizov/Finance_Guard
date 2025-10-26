@@ -10,10 +10,10 @@ class CategorySwitchTile extends StatefulWidget {
   final Future<void> Function(CategoryEntity category) onToggle;
 
   const CategorySwitchTile({
-    Key? key,
+    super.key,
     required this.category,
     required this.onToggle,
-  }) : super(key: key);
+  }) ;
 
   @override
   State<CategorySwitchTile> createState() => _CategorySwitchTileState();

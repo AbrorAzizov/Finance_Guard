@@ -16,6 +16,7 @@ import '../bloc/goal/goals_state.dart';
 import '../data/entity/limits_entity.dart';
 import '../widgets/goal_card.dart';
 import '../widgets/limit_widget.dart';
+import 'add_goal_page.dart';
 
 class BudgetTab extends StatefulWidget {
   const BudgetTab({super.key});
@@ -144,7 +145,7 @@ class _BudgetTabState extends State<BudgetTab> {
                 AddCircleButton(onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) =>  LimitsEditPage()),
+                    MaterialPageRoute(builder: (_) =>  AddGoalPage()),
                   );
                 },)
               ],
@@ -160,9 +161,10 @@ class _BudgetTabState extends State<BudgetTab> {
                       itemCount: state.goals.length,
                       itemBuilder: (context, index) {
                         final goal = state.goals[index];
-                        print(state.goals.length);
+
                         final totalPercentage = (goal.targetAmount / total );
                         return GoalCard (
+
                           totalPercentage: totalPercentage,
                           goal : goal,
                           total: total

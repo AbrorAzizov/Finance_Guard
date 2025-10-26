@@ -23,7 +23,7 @@ class NotificationsButton extends StatelessWidget {
           ),
           child: const Center(
             child: Icon(
-              Icons.notifications_none_rounded,
+              Icons.smart_toy,
               color: Colors.white,
               size: 28,
             ),

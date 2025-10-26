@@ -76,7 +76,7 @@ class _AiOverviewPageState extends State<AiOverviewPage> {
                       child: TextField(
                         controller: _controller,
                         decoration: InputDecoration(
-                          hintText: "Введите сообщение...",
+                          hintText: "Enter a message...",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),

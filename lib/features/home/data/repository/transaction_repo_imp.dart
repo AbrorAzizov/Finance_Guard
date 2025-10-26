@@ -39,7 +39,7 @@ class TransactionRepoImp implements  TransactionRepository {
               date.month == now.month &&
               date.day == now.day;
 
-        case 'week': // последние 7 дней
+        case 'week':
           final weekAgo = now.subtract(Duration(days: 7));
           return date.year == now.year &&
               date.isAfter(weekAgo) && date.isBefore(now.add(Duration(days: 1)));

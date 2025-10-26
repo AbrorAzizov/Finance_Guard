@@ -1,6 +1,6 @@
 import 'package:finance_guard/core/constants/app_colors.dart';
 import 'package:finance_guard/core/constants/text_styles.dart';
-import 'package:finance_guard/core/widgets/PlusButton.dart';
+import 'package:finance_guard/core/widgets/plus_button.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,8 +57,8 @@ class _ExpensesPieChartCardState extends State<ExpensesPieChartCard> {
                           ),
                         ).toList(),
                       ),
-                      swapAnimationDuration: const Duration(milliseconds: 800), // время анимации
-                      swapAnimationCurve: Curves.easeInOut, // тип анимации
+                      swapAnimationDuration: const Duration(milliseconds: 800),
+                      swapAnimationCurve: Curves.easeInOut,
                     ),
 
                     Column(

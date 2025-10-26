@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../home/domain/entity/transaction_entity.dart';
@@ -27,7 +28,7 @@ class ChatCubit extends Cubit<ChatState> {
 
       emit(ChatLoaded(List.from(_messages)));
     } catch (e) {
-      print(e);
+
       emit(ChatError(e.toString()));
     }
   }
@@ -40,7 +41,7 @@ class ChatCubit extends Cubit<ChatState> {
       _messages.add(aiMessage);
       emit(ChatLoaded(List.from(_messages)));
     } catch (e) {
-      print(e);
+
       emit(ChatError(e.toString()));
     }
   }
@@ -55,7 +56,7 @@ class ChatCubit extends Cubit<ChatState> {
 
       emit(ChatLoaded(List.from(_messages)));
     } catch (e) {
-      print(e);
+      debugPrint(e as String?);
       emit(ChatError(e.toString()));
     }
 

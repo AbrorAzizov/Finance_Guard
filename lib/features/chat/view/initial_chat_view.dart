@@ -1,10 +1,8 @@
 import 'package:finance_guard/core/constants/text_styles.dart';
 import 'package:finance_guard/features/chat/bloc/chat_cubit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/constants/app_colors.dart';
 import '../../home/bloc/transaction_bloc/transaction_cubit.dart';
 import '../../home/bloc/transaction_bloc/transaction_state.dart';
@@ -94,7 +92,7 @@ class InitialChatView extends StatelessWidget {
                          Text(
                            'How to reach my goal faster ',
                            style: const TextStyle(
-                             color: Colors.white, // ✅ белый текст
+                             color: Colors.white,
                              fontSize: 16,
                              fontWeight: FontWeight.w600,
                            ),

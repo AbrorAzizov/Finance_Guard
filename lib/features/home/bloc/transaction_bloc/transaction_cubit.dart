@@ -1,5 +1,6 @@
-import 'package:bloc/bloc.dart';
+
 import 'package:finance_guard/features/categories/data/entity/category_entity.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../servise_locator.dart';
 import '../../../categories/domain/repo/categories_repo.dart';
@@ -43,7 +44,6 @@ class TransactionCubit extends Cubit<TransactionState> {
           ? totalBalance + transaction.amount
           : totalBalance - transaction.amount;
       balance.saveTotal(newTotal);
-      print(transaction.date.toString());
       emit(TransactionStateCreated());
     } catch (e) {
       emit(TransactionStateError('Ошибка при создании транзакции: $e'));

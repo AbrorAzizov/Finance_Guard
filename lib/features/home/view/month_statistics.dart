@@ -27,7 +27,7 @@ class _MonthStatisticsState extends State<MonthStatistics> {
     return BlocBuilder<TransactionCubit, TransactionState>(
       builder: (context, state) {
         if (state is TransactionStateSummary) {
-          final dayData = state.monthData; // берём именно дневную статистику
+          final dayData = state.monthData;
           final transactions = state.transactions;
           return SingleChildScrollView(
             child: Column(
